@@ -19,7 +19,24 @@ export class ReservationRepository {
       reservation.id,
       reservation.userId,
       reservation.seatId,
-      reservation.scheduleId,
+      reservation.reservedUntil,
+    );
+  }
+
+  async create(
+    userId: string,
+    seatId: number,
+    reservedUntil: Date,
+  ): Promise<Reservation> {
+    const reservation = this.reservationRepository.create({
+      userId,
+      seatId,
+      reservedUntil,
+    });
+    return new Reservation(
+      reservation.id,
+      reservation.userId,
+      reservation.seatId,
       reservation.reservedUntil,
     );
   }
@@ -29,7 +46,6 @@ export class ReservationRepository {
       id: reservation.id,
       userId: reservation.userId,
       seatId: reservation.seatId,
-      scheduleId: reservation.scheduleId,
       reservedUntil: reservation.reservedUntil,
     });
     await this.reservationRepository.save(userEntity);
