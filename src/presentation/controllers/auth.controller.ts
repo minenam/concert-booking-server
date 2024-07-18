@@ -1,18 +1,26 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { AuthService } from '@application/services/auth.service';
+import { Body, Controller, HttpStatus, Post, Res } from '@nestjs/common';
 import { ApiBody, ApiTags } from '@nestjs/swagger';
-import { AuthDto } from '@presentation/dtos/auth.dto';
+import { GetTokenBodyDto } from '@presentation/dtos/get-token.dto';
+import { Response } from 'express';
+import { ServerResponse } from 'http';
 
 @ApiTags('auth')
 @Controller('auth')
 export class AuthController {
-  constructor() {}
+  constructor(private readonly authService: AuthService) {}
 
-  @ApiBody({ type: AuthDto })
+  @ApiBody({ type: GetTokenBodyDto })
   @Post('token')
-  getToken(@Body() body: AuthDto) {
-    return {
-      token: 'test-token',
-      queueInfo: { position: 1, estimatedWaitTime: 120 },
-    };
+  async getToken(
+    @Body() body: GetTokenBodyDto,
+    @Res() response: Response,
+  ): Promise<ServerResponse> {
+    const { token } = await this.authService.getToken(body.userId);
+    response.header('user-token', token);
+    return response.send({
+      statusCode: HttpStatus.OK,
+      message: 'Token generated successfully',
+    });
   }
 }

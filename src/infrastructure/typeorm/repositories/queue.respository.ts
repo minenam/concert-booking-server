@@ -1,4 +1,4 @@
-import { QueueRepositoryInterface } from '@domain/interfaces/queue-repository.inteface';
+import { QueueRepositoryInterface } from '@domain/interfaces/queue-repository.interface';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FindManyOptions, FindOneOptions, Repository } from 'typeorm';
