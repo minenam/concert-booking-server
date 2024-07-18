@@ -79,7 +79,9 @@
       "^@domain/(.*)$": "<rootDir>/domain/$1",
       "^@services/(.*)$": "<rootDir>/services/$1",
       "^@infrastructure/(.*)$": "<rootDir>/infrastructure/$1",
-      "^@presentation/(.*)$": "<rootDir>/presentation/$1"
+      "^@presentation/(.*)$": "<rootDir>/presentation/$1",
+      "^@common/(.*)$": "<rootDir>/common/$1",
+      "^@test/(.*)$": "<rootDir>/../test/$1"
     }
   }
 }
