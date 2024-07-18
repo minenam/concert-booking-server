@@ -1,11 +1,18 @@
 # Concert Booking Service Server
 
 ## Documentations
+
 - [Milestone](./docs/MILESTONE.md)
 - [Sequence Diagram](./docs/SEQUENCE_DIAGRAM.md)
 - [ERD](./docs/ERD.md)
-- [API Spec](./docs/API_SPEC.md)
+
 <!-- - [API Documentation](https://documenter.getpostman.com/view/10629292/Tz5tZ6Q7) -->
+
+## API Spec
+
+- [API Spec](./docs/API_SPEC.md)
+
+  ![swagger API Image](./docs/swagger-w4.png)
 
 ## Description
 

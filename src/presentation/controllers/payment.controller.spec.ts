@@ -1,6 +1,6 @@
+import { PaymentService } from '@application/services/payment.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { PaymentController } from './payment.controller';
-import { PaymentService } from './payment.service';
 
 describe('PaymentController', () => {
   let controller: PaymentController;

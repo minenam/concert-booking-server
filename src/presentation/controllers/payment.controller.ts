@@ -1,11 +1,15 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { ApiBody, ApiTags } from '@nestjs/swagger';
+import { ChargeDto, PaymentDto } from '../dtos/payment.dto';
 
+@ApiTags('payment')
 @Controller('payment')
 export class PaymentController {
   constructor() {}
 
+  @ApiBody({ type: ChargeDto })
   @Post('charge')
-  chargeBalance(@Body() charge: { userId: string; amount: number }) {
+  chargeBalance(@Body() charge: ChargeDto) {
     return { balance: 200.0 };
   }
 
@@ -14,10 +18,9 @@ export class PaymentController {
     return { balance: 200.0 };
   }
 
+  @ApiBody({ type: PaymentDto })
   @Post()
-  makePayment(
-    @Body() payment: { amount: number; reservationId: number; token: string },
-  ) {
+  makePayment(@Body() payment: PaymentDto) {
     return {
       reservationId: 1,
       status: 'COMPLETED',
