@@ -2,11 +2,11 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class ReservationsDto {
   @ApiProperty()
+  userId: string;
+
+  @ApiProperty()
   date: string;
 
   @ApiProperty()
-  seat: number;
-
-  @ApiProperty()
-  token: string;
+  seatId: number;
 }

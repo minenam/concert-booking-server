@@ -4,6 +4,6 @@ export class Payment {
     public userId: string,
     public reservationId: number,
     public amount: number,
-    public timestamp: Date,
+    public createdAt: Date,
   ) {}
 }
