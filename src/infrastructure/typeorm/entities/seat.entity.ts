@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { ConcertEntity } from './concert.entity';
 
 export enum SeatStatus {
   PENDING = 'pending',
@@ -23,4 +24,7 @@ export class SeatEntity {
 
   @Column({ type: 'decimal' })
   price: number;
+
+  @ManyToOne(() => ConcertEntity, (concert) => concert.seats)
+  concert: ConcertEntity;
 }

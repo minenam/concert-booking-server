@@ -1,6 +1,11 @@
+import { Seat } from './seat.entity';
+
 export class Concert {
-  constructor(
-    public id: number,
-    public name: string,
-  ) {}
+  id?: number | null;
+  name: string;
+  seats?: Seat[];
+}
+
+export class ConcertDates {
+  dates: string[];
 }
