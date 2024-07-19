@@ -1,8 +1,17 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { LoggingInterceptor } from '@common/interceptors/logging.interceptor';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  UseInterceptors,
+} from '@nestjs/common';
 import { ApiBody, ApiTags } from '@nestjs/swagger';
 import { ChargeDto, PaymentDto } from '../dtos/payment.dto';
 
 @ApiTags('payment')
+@UseInterceptors(LoggingInterceptor)
 @Controller('payment')
 export class PaymentController {
   constructor() {}
