@@ -1,7 +1,7 @@
+import { Queue } from './queue.entity';
+
 export class User {
-  constructor(
-    public id: string,
-    public balance: number,
-    public queueToken: string | null = null,
-  ) {}
+  id?: string | null;
+  balance: number;
+  queue?: Queue[] | null = null;
 }

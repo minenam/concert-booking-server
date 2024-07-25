@@ -15,7 +15,9 @@
       "@domain/*": ["domain/*"],
       "@services/*": ["services/*"],
       "@infrastructure/*": ["infrastructure/*"],
-      "@presentation/*": ["presentation/*"]
+      "@presentation/*": ["presentation/*"],
+      "@common/*": ["common/*"],
+      "@test/*": ["../test/*"]
     },
     "incremental": true,
     "skipLibCheck": true,

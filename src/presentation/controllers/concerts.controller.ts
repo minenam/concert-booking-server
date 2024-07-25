@@ -1,23 +1,71 @@
-import { ReservationsDto } from '@application/dtos/reservations.dto';
+import { ConcertsService } from '@application/services/concerts.service';
 import { ReservationService } from '@application/services/reservation.service';
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
-import { ApiBody, ApiTags } from '@nestjs/swagger';
+import { LoggingInterceptor } from '@common/interceptors/logging.interceptor';
+import { SeatStatus } from '@infrastructure/typeorm/entities/seat.entity';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpStatus,
+  Param,
+  Post,
+  Query,
+  UseInterceptors,
+} from '@nestjs/common';
+import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { GetConcertsResponseDto } from '@presentation/dtos/get-concert.dto';
+import { GetAvailableDatesResponseDto } from '@presentation/dtos/get-dates.dto';
+import { GetAvailableSeatsResponseDto } from '@presentation/dtos/get-seats.dto';
+import { ReservationsDto } from '@presentation/dtos/reservations.dto';
 
 @ApiTags('concerts')
+@UseInterceptors(LoggingInterceptor)
 @Controller('concerts')
 export class ConcertsController {
-  constructor(private readonly reservationService: ReservationService) {}
+  constructor(
+    private readonly reservationService: ReservationService,
+    private readonly concertsService: ConcertsService,
+  ) {}
 
-  @Get('dates')
-  getAvailableDates() {
-    return { dates: ['2023-01-01', '2023-01-02'] };
+  @ApiOperation({ summary: '콘서트 목록 조회' })
+  @Get()
+  async getConcerts(): Promise<GetConcertsResponseDto> {
+    const concerts = await this.concertsService.findConcerts();
+    return {
+      statusCode: HttpStatus.OK,
+      message: 'Success',
+      concerts,
+    };
   }
 
-  @Get('seats')
-  getAvailableSeats(@Query('date') date: string) {
-    return { seats: [1, 2, 3] };
+  @ApiOperation({ summary: '예약 가능 날짜 조회' })
+  @Get(':id/dates')
+  async getAvailableDates(
+    @Param('id') id: number,
+  ): Promise<GetAvailableDatesResponseDto> {
+    const dates = await this.concertsService.findAvailableDates(+id);
+    return {
+      statusCode: HttpStatus.OK,
+      message: 'Success',
+      dates,
+    };
   }
 
+  @ApiOperation({ summary: '예약 가능 좌석 조회' })
+  @Get(':id/seats')
+  async getAvailableSeats(
+    @Param('id') id: number,
+    @Query('date') date: string,
+  ): Promise<GetAvailableSeatsResponseDto> {
+    const seats = await this.concertsService.findAvailableSeats(+id, date);
+    return {
+      statusCode: HttpStatus.OK,
+      message: 'Success',
+      seats,
+    };
+  }
+
+  @ApiOperation({ summary: '좌석 예약 요청' })
   @ApiBody({ type: ReservationsDto })
   @Post('reservations')
   async reserveSeat(@Body() reservation: ReservationsDto) {
@@ -28,7 +76,7 @@ export class ConcertsController {
     );
     return {
       reservationId: reservationResult.id,
-      status: 'RESERVED',
+      status: SeatStatus.RESERVED,
       reservedUntil: reservationResult.reservedUntil,
     };
   }

@@ -4,7 +4,7 @@ FROM postgres:alpine
 # Set the environment variables
 ENV POSTGRES_USER=postgres
 ENV POSTGRES_PASSWORD=postgres
-ENV POSTGRES_DB=postgres
+ENV POSTGRES_DB=concerts
 
 # Expose the port
 EXPOSE 5432
@@ -20,5 +20,5 @@ CMD ["postgres"]
 
 #  Step 4: Connect to the PostgreSQL Database 
 #  docker exec -it <container_id>|<container_name> bash
-#  psql -U postgres -d postgres 
+#  psql -U postgres -d concerts 
 

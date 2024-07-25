@@ -2,8 +2,17 @@ import { AuthService } from '@application/services/auth.service';
 import { ConcertsService } from '@application/services/concerts.service';
 import { PaymentService } from '@application/services/payment.service';
 import { ReservationService } from '@application/services/reservation.service';
-import { UserEntity } from '@infrastructure/orm/entities/user.entity';
-import { UserRepository } from '@infrastructure/orm/repositories/user.repository';
+import { ConcertEntity } from '@infrastructure/typeorm/entities/concert.entity';
+import { PaymentEntity } from '@infrastructure/typeorm/entities/payment.entity';
+import { QueueEntity } from '@infrastructure/typeorm/entities/queue.entity';
+import { ReservationEntity } from '@infrastructure/typeorm/entities/reservation.entity';
+import { SeatEntity } from '@infrastructure/typeorm/entities/seat.entity';
+import { UserEntity } from '@infrastructure/typeorm/entities/user.entity';
+import { ConcertRepository } from '@infrastructure/typeorm/repositories/concert.repository';
+import { QueueRepository } from '@infrastructure/typeorm/repositories/queue.respository';
+import { ReservationRepository } from '@infrastructure/typeorm/repositories/reservation.repository';
+import { SeatRepository } from '@infrastructure/typeorm/repositories/seat.repository';
+import { UserRepository } from '@infrastructure/typeorm/repositories/user.repository';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthController } from '@presentation/controllers/auth.controller';
@@ -15,14 +24,28 @@ import { PaymentController } from '@presentation/controllers/payment.controller'
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
-      port: 5433,
+      port: 5435,
       username: 'postgres',
       password: 'postgres',
       database: 'concerts',
-      entities: [UserEntity],
+      entities: [
+        ConcertEntity,
+        PaymentEntity,
+        QueueEntity,
+        ReservationEntity,
+        SeatEntity,
+        UserEntity,
+      ],
       synchronize: true,
     }),
-    TypeOrmModule.forFeature([UserEntity]),
+    TypeOrmModule.forFeature([
+      ConcertEntity,
+      PaymentEntity,
+      QueueEntity,
+      ReservationEntity,
+      SeatEntity,
+      UserEntity,
+    ]),
   ],
   controllers: [ConcertsController, AuthController, PaymentController],
   providers: [
@@ -31,6 +54,16 @@ import { PaymentController } from '@presentation/controllers/payment.controller'
     PaymentService,
     ReservationService,
     UserRepository,
+    {
+      provide: 'QueueRepository',
+      useClass: QueueRepository,
+    },
+    {
+      provide: 'ConcertRepository',
+      useClass: ConcertRepository,
+    },
+    ReservationRepository,
+    SeatRepository,
   ],
 })
 export class AppModule {}

@@ -15,7 +15,7 @@ export class UserRepository {
     const findParameters = { where: { id } };
     const user = await this.userRepository.findOne(findParameters);
     if (!user) return null;
-    return new User(user.id, user.balance);
+    return user;
   }
 
   async save(): Promise<void> {

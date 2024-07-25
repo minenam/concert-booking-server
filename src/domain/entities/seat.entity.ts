@@ -1,10 +1,11 @@
-import { SeatStatus } from '@infrastructure/orm/entities/seat.entity';
+import { SeatStatus } from '@infrastructure/typeorm/entities/seat.entity';
+import { Concert } from './concert.entity';
 
 export class Seat {
-  constructor(
-    public id: number,
-    public seatNumber: number,
-    public status: SeatStatus,
-    public price: number,
-  ) {}
+  id: number;
+  seatNumber: number;
+  status: SeatStatus;
+  date: string;
+  price: number;
+  concert: Concert;
 }
