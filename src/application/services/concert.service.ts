@@ -3,7 +3,7 @@ import { ConcertRepositoryInterface } from '@domain/interfaces/concert-repositor
 import { Inject, Injectable } from '@nestjs/common';
 
 @Injectable()
-export class ConcertsService {
+export class ConcertService {
   constructor(
     @Inject('ConcertRepository')
     private readonly concertRepository: ConcertRepositoryInterface,

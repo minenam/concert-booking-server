@@ -1,4 +1,4 @@
-import { ConcertsService } from '@application/services/concerts.service';
+import { ConcertService } from '@application/services/concert.service';
 import { ReservationService } from '@application/services/reservation.service';
 import { SeatStatus } from '@infrastructure/typeorm/entities/seat.entity';
 import { Test, TestingModule } from '@nestjs/testing';
@@ -12,7 +12,7 @@ describe('ConcertsController', () => {
       controllers: [ConcertsController],
       providers: [
         {
-          provide: ConcertsService,
+          provide: ConcertService,
           useValue: {
             findAvailableDates: jest
               .fn()
