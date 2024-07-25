@@ -1,4 +1,3 @@
-import { LoggingInterceptor } from '@common/interceptors/logging.interceptor';
 import {
   Body,
   Controller,
@@ -8,6 +7,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { ApiBody, ApiTags } from '@nestjs/swagger';
+import { LoggingInterceptor } from '@presentation/interceptors/logging.interceptor';
 import { ChargeDto, PaymentDto } from '../dtos/payment.dto';
 
 @ApiTags('payment')
