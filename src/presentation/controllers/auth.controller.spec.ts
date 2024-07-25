@@ -1,6 +1,6 @@
 import { AuthService } from '@application/services/auth.service';
 import { QueueEntity } from '@infrastructure/typeorm/entities/queue.entity';
-import { QueueRepository } from '@infrastructure/typeorm/repositories/queue.respository';
+import { QueueRepository } from '@infrastructure/typeorm/repositories/queue.repository';
 import { UserRepository } from '@infrastructure/typeorm/repositories/user.repository';
 import { HttpStatus } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';

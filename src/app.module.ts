@@ -9,7 +9,7 @@ import { ReservationEntity } from '@infrastructure/typeorm/entities/reservation.
 import { SeatEntity } from '@infrastructure/typeorm/entities/seat.entity';
 import { UserEntity } from '@infrastructure/typeorm/entities/user.entity';
 import { ConcertRepository } from '@infrastructure/typeorm/repositories/concert.repository';
-import { QueueRepository } from '@infrastructure/typeorm/repositories/queue.respository';
+import { QueueRepository } from '@infrastructure/typeorm/repositories/queue.repository';
 import { ReservationRepository } from '@infrastructure/typeorm/repositories/reservation.repository';
 import { SeatRepository } from '@infrastructure/typeorm/repositories/seat.repository';
 import { UserRepository } from '@infrastructure/typeorm/repositories/user.repository';
