@@ -2,6 +2,7 @@ import { AuthService } from '@application/services/auth.service';
 import { ConcertService } from '@application/services/concert.service';
 import { PaymentService } from '@application/services/payment.service';
 import { ReservationService } from '@application/services/reservation.service';
+import { UserService } from '@application/services/user.service';
 import { ConcertEntity } from '@infrastructure/typeorm/entities/concert.entity';
 import { PaymentEntity } from '@infrastructure/typeorm/entities/payment.entity';
 import { QueueEntity } from '@infrastructure/typeorm/entities/queue.entity';
@@ -54,6 +55,7 @@ import { PaymentController } from '@presentation/controllers/payment.controller'
     AuthService,
     PaymentService,
     ReservationService,
+    UserService,
     {
       provide: 'UserRepository',
       useClass: UserRepository,
