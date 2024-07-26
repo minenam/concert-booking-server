@@ -1,3 +1,4 @@
+import { Seat } from '@domain/entities/seat.entity';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -10,18 +11,18 @@ export class SeatRepository {
     private readonly seatRepository: Repository<SeatEntity>,
   ) {}
 
-  async findById(id: number): Promise<SeatEntity | null> {
+  async findById(id: number): Promise<Seat | null> {
     const findParameters = { where: { id } };
     const seat = await this.seatRepository.findOne(findParameters);
     return seat ?? null;
   }
 
-  async findByIdAndDate(id: number, date: string): Promise<SeatEntity | null> {
+  async findByIdAndDate(id: number, date: string): Promise<Seat | null> {
     const findParameters = { where: { id, date } };
     const seat = await this.seatRepository.findOne(findParameters);
     return seat ?? null;
   }
-  async save(seat: SeatEntity): Promise<void> {
+  async save(seat: Seat): Promise<void> {
     const userEntity = this.seatRepository.create({
       id: seat.id,
       seatNumber: seat.seatNumber,
@@ -32,7 +33,7 @@ export class SeatRepository {
     await this.seatRepository.save(userEntity);
   }
 
-  async update(seat: SeatEntity): Promise<void> {
+  async update(seat: Seat): Promise<void> {
     await this.seatRepository.update(seat.id, { status: seat.status });
   }
 }

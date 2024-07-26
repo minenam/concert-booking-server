@@ -1,6 +1,7 @@
-import { QueueStatus, Token } from '@domain/entities/queue.entity';
+import { Token } from '@domain/entities/queue.entity';
 import { QueueRepositoryInterface } from '@domain/interfaces/queue-repository.interface';
-import { UserRepositoryInterface } from '@domain/interfaces/user-repository.interface';
+import { QueueStatus } from '@infrastructure/typeorm/entities/queue.entity';
+import { UserRepository } from '@infrastructure/typeorm/repositories/user.repository';
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 
 @Injectable()
@@ -8,8 +9,7 @@ export class AuthService {
   constructor(
     @Inject('QueueRepository')
     private readonly queueRepository: QueueRepositoryInterface,
-    @Inject('UserRepository')
-    private readonly userRepository: UserRepositoryInterface,
+    private readonly userRepository: UserRepository,
   ) {}
 
   async getToken(userId: string): Promise<Token> {
@@ -38,11 +38,7 @@ export class AuthService {
       where: { status: QueueStatus.WAITING },
     });
     const position = queues.length + 1;
-    const queue = {
-      userId: user.id,
-      position,
-      status: QueueStatus.WAITING,
-    };
+    const queue = { id: null, user, position };
     await this.queueRepository.save(queue);
 
     return this.generateToken(user.id, position);

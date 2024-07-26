@@ -28,6 +28,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
         timestamp: new Date().toISOString(),
         path: request.url,
         message: message,
+        stack: exceptionResponse['stack'],
       };
     } else {
       body = {
@@ -35,6 +36,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
         timestamp: new Date().toISOString(),
         path: request.url,
         message: exception['message'],
+        stack: exception['stack'],
       };
     }
     Logger.error(body.message, JSON.stringify(body), request.url);

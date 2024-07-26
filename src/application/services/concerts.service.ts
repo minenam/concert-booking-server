@@ -3,7 +3,7 @@ import { ConcertRepositoryInterface } from '@domain/interfaces/concert-repositor
 import { Inject, Injectable } from '@nestjs/common';
 
 @Injectable()
-export class ConcertService {
+export class ConcertsService {
   constructor(
     @Inject('ConcertRepository')
     private readonly concertRepository: ConcertRepositoryInterface,
@@ -21,5 +21,17 @@ export class ConcertService {
   async findAvailableSeats(id: number, date: string): Promise<number[]> {
     const concert = await this.concertRepository.findById(id, date);
     return concert.seats.map((seat) => seat.id); // seats: [1, 2, 3, 4, 5],
+  }
+
+  async reserveSeat(reservationData: {
+    date: string;
+    seat: number;
+    token: string;
+  }) {
+    return {
+      reservationId: 1,
+      status: 'RESERVED',
+      reservedUtil: '2024-07-01T12:00:00',
+    };
   }
 }

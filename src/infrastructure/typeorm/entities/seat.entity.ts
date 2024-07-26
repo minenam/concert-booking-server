@@ -1,10 +1,4 @@
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { ConcertEntity } from './concert.entity';
 
 export enum SeatStatus {
@@ -31,7 +25,6 @@ export class SeatEntity {
   @Column({ type: 'decimal' })
   price: number;
 
-  @ManyToOne(() => ConcertEntity)
-  @JoinColumn({ name: 'concert_id' })
-  concertId: number;
+  @ManyToOne(() => ConcertEntity, (concert) => concert.seats)
+  concert: ConcertEntity;
 }

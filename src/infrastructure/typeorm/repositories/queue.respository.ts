@@ -1,4 +1,3 @@
-import { Queue } from '@domain/entities/queue.entity';
 import { QueueRepositoryInterface } from '@domain/interfaces/queue-repository.interface';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -12,24 +11,25 @@ export class QueueRepository implements QueueRepositoryInterface {
     private readonly queueRepository: Repository<QueueEntity>,
   ) {}
 
-  async findById(id: number): Promise<Queue | null> {
+  async findById(id: number): Promise<QueueEntity | null> {
     const findParameters = { where: { id } };
     const queue = await this.queueRepository.findOne(findParameters);
-    return queue || null;
+    if (!queue) return null;
+    return queue;
   }
 
-  async save(queue: Queue): Promise<Queue> {
+  async save(queue: QueueEntity): Promise<QueueEntity> {
     const queueEntity = this.queueRepository.create({
-      userId: queue.userId,
+      user: { id: queue.user.id },
       position: queue.position,
     });
     return await this.queueRepository.save(queueEntity);
   }
 
-  async findByUserId(userId: string): Promise<Queue | null> {
-    const findParameters: FindOneOptions<Queue> = {
-      where: { userId },
-      select: { userId: true },
+  async findByUserId(userId: string): Promise<QueueEntity | null> {
+    const findParameters: FindOneOptions<QueueEntity> = {
+      where: { user: { id: userId } },
+      select: { user: { id: true } },
       relations: ['user'],
     };
     const queue = await this.queueRepository.findOne(findParameters);
@@ -37,7 +37,9 @@ export class QueueRepository implements QueueRepositoryInterface {
     return queue;
   }
 
-  async findMany(parameters?: FindManyOptions<Queue>): Promise<Queue[]> {
+  async findMany(
+    parameters?: FindManyOptions<QueueEntity>,
+  ): Promise<QueueEntity[]> {
     return await this.queueRepository.find(parameters);
   }
 }

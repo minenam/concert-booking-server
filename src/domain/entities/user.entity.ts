@@ -1,9 +1,7 @@
-export class User {
-  id: string;
-  balance: number;
-}
+import { Queue } from './queue.entity';
 
-export class UpdateUser {
-  id: string;
+export class User {
+  id?: string | null;
   balance: number;
+  queue?: Queue[] | null = null;
 }

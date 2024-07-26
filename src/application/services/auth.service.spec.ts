@@ -1,5 +1,5 @@
 import { QueueEntity } from '@infrastructure/typeorm/entities/queue.entity';
-import { QueueRepository } from '@infrastructure/typeorm/repositories/queue.repository';
+import { QueueRepository } from '@infrastructure/typeorm/repositories/queue.respository';
 import { UserRepository } from '@infrastructure/typeorm/repositories/user.repository';
 import { NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';

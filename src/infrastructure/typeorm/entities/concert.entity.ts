@@ -9,6 +9,6 @@ export class ConcertEntity {
   @Column()
   name: string;
 
-  @OneToMany(() => SeatEntity, (seat) => seat.concertId)
+  @OneToMany(() => SeatEntity, (seat) => seat.concert)
   seats: SeatEntity[];
 }
