@@ -38,7 +38,11 @@ export class AuthService {
       where: { status: QueueStatus.WAITING },
     });
     const position = queues.length + 1;
-    const queue = { id: null, user, position, status: QueueStatus.WAITING };
+    const queue = {
+      userId: user.id,
+      position,
+      status: QueueStatus.WAITING,
+    };
     await this.queueRepository.save(queue);
 
     return this.generateToken(user.id, position);

@@ -1,5 +1,3 @@
-import { User } from './user.entity';
-
 export enum QueueStatus {
   WAITING = 'WAITING',
   IN_PROGRESS = 'IN_PROGRESS',
@@ -15,7 +13,7 @@ export class Queue {
 }
 
 export class CreateQueue {
-  user: User;
+  userId: string;
   position: number;
   status: QueueStatus = QueueStatus.WAITING;
 }
