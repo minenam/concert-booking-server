@@ -1,9 +1,7 @@
 export class Payment {
-  constructor(
-    public id: number,
-    public userId: string,
-    public reservationId: number,
-    public amount: number,
-    public createdAt: Date,
-  ) {}
+  id?: number | null;
+  userId: string;
+  reservationId: number;
+  amount: number;
+  createdAt?: Date;
 }
