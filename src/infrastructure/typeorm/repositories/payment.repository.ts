@@ -17,9 +17,9 @@ export class PaymentRepository {
     return payment;
   }
 
-  async save(payment: PaymentEntity): Promise<void> {
+  async save(payment: PaymentEntity): Promise<PaymentEntity> {
     const paymentEntity = this.paymentRepository.create(payment);
-    await this.paymentRepository.save(paymentEntity);
+    return await this.paymentRepository.save(paymentEntity);
   }
 
   async update(payment: PaymentEntity): Promise<void> {

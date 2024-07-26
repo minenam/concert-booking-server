@@ -1,4 +1,7 @@
-import { Reservation } from '@domain/entities/reservation.entity';
+import {
+  PaymentStatus,
+  Reservation,
+} from '@domain/entities/reservation.entity';
 import { QueueRepositoryInterface } from '@domain/interfaces/queue-repository.interface';
 import { ReservationRepositoryInterface } from '@domain/interfaces/researvation-repository.interface';
 import { SeatRepositoryInterface } from '@domain/interfaces/seat-repository.interface';
@@ -58,19 +61,19 @@ export class ReservationService {
 
     return reservation;
   }
-  // async processPayment(
-  //   userId: string,
-  //   reservationId: number,
-  //   amount: number,
-  // ): Promise<string> {
-  //   const reservation =
-  //     await this.reservationRepository.findById(reservationId);
-  //   if (!reservation || reservation.userId !== userId) {
-  //     throw new Error('Reservation not found or user mismatch');
-  //   }
-  //   // Process the payment here (simplified for example)
-  //   reservation.confirmationStatus = 'PAID';
-  //   await this.reservationRepository.update(reservation);
-  //   return 'Payment successful';
-  // }
+  async processPayment(
+    userId: string,
+    reservationId: number,
+    amount: number,
+  ): Promise<string> {
+    const reservation =
+      await this.reservationRepository.findById(reservationId);
+    if (!reservation || reservation.userId !== userId) {
+      throw new Error('Reservation not found or user mismatch');
+    }
+    // Process the payment here (simplified for example)
+    reservation.paymentStatus = PaymentStatus.DONE;
+    await this.reservationRepository.update(reservation);
+    return 'Payment successful';
+  }
 }
