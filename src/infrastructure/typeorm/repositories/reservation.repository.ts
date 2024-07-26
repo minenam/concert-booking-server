@@ -36,6 +36,19 @@ export class ReservationRepository {
       userId: reservation.userId,
       seatId: reservation.seatId,
       reservedUntil: reservation.reservedUntil,
+      paymentId: reservation.paymentId,
+      paymentStatus: reservation.paymentStatus,
+    });
+    await this.reservationRepository.save(userEntity);
+  }
+
+  async update(reservation: ReservationEntity): Promise<void> {
+    const userEntity = this.reservationRepository.create({
+      userId: reservation.userId,
+      seatId: reservation.seatId,
+      reservedUntil: reservation.reservedUntil,
+      paymentId: reservation.paymentId,
+      paymentStatus: reservation.paymentStatus,
     });
     await this.reservationRepository.save(userEntity);
   }

@@ -1,4 +1,7 @@
-import { Reservation } from '@domain/entities/reservation.entity';
+import {
+  Reservation,
+  UpdateReservation,
+} from '@domain/entities/reservation.entity';
 
 export interface ReservationRepositoryInterface {
   create(
@@ -7,4 +10,6 @@ export interface ReservationRepositoryInterface {
     reservedUntil: Date,
   ): Promise<Reservation>;
   save(reservation: Reservation): Promise<void>;
+  findById(id: number): Promise<Reservation | undefined>;
+  update(reservation: UpdateReservation): Promise<void>;
 }
