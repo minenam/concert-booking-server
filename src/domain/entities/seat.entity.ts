@@ -1,5 +1,4 @@
 import { SeatStatus } from '@infrastructure/typeorm/entities/seat.entity';
-import { Concert } from './concert.entity';
 
 export class Seat {
   id: number;
@@ -7,5 +6,5 @@ export class Seat {
   status: SeatStatus;
   date: string;
   price: number;
-  concert: Concert;
+  concertId: number;
 }

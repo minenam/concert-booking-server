@@ -1,5 +1,4 @@
 import { AuthService } from '@application/services/auth.service';
-import { LoggingInterceptor } from '@common/interceptors/logging.interceptor';
 import {
   Body,
   Controller,
@@ -10,6 +9,7 @@ import {
 } from '@nestjs/common';
 import { ApiBody, ApiTags } from '@nestjs/swagger';
 import { GetTokenBodyDto } from '@presentation/dtos/get-token.dto';
+import { LoggingInterceptor } from '@presentation/interceptors/logging.interceptor';
 import { Response } from 'express';
 import { ServerResponse } from 'http';
 

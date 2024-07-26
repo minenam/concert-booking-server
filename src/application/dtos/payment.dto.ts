@@ -1,5 +1,5 @@
 export class PaymentDto {
-  userId: string;
+  token: string;
   reservationId: number;
   amount: number;
 }

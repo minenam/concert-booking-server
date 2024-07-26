@@ -12,7 +12,10 @@ export class ConcertRepository {
   ) {}
 
   async findById(id: number, date?: string): Promise<Concert | null> {
-    const findParameters = { where: { id, date }, relations: ['seats'] };
+    const findParameters = {
+      where: { id, seats: { date } },
+      relations: ['seats'],
+    };
     const concert = await this.concertRepository.findOne(findParameters);
     if (!concert) return null;
     return concert;
@@ -21,7 +24,15 @@ export class ConcertRepository {
   async findMany(): Promise<Concert[]> {
     const findParameters = {
       relations: ['seats'],
-      // include: ['id', 'name', 'concertNumber', 'status', 'date', 'price'],
+      include: [
+        'id',
+        'name',
+        'concertNumber',
+        'status',
+        'date',
+        'price',
+        'seats',
+      ],
     };
     const concerts = await this.concertRepository.find(findParameters);
     return concerts;
