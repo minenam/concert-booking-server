@@ -2,14 +2,14 @@ import { ConcertService } from '@application/services/concert.service';
 import { ReservationService } from '@application/services/reservation.service';
 import { SeatStatus } from '@infrastructure/typeorm/entities/seat.entity';
 import { Test, TestingModule } from '@nestjs/testing';
-import { ConcertsController } from './concerts.controller';
+import { concertController } from './concert.controller';
 
-describe('ConcertsController', () => {
-  let controller: ConcertsController;
+describe('concertController', () => {
+  let controller: concertController;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [ConcertsController],
+      controllers: [concertController],
       providers: [
         {
           provide: ConcertService,
@@ -41,7 +41,7 @@ describe('ConcertsController', () => {
       ],
     }).compile();
 
-    controller = module.get<ConcertsController>(ConcertsController);
+    controller = module.get<concertController>(concertController);
   });
 
   it('should be defined', () => {

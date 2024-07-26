@@ -17,7 +17,7 @@ import { UserRepository } from '@infrastructure/typeorm/repositories/user.reposi
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthController } from '@presentation/controllers/auth.controller';
-import { ConcertsController } from '@presentation/controllers/concerts.controller';
+import { concertController } from '@presentation/controllers/concert.controller';
 import { PaymentController } from '@presentation/controllers/payment.controller';
 
 @Module({
@@ -48,7 +48,7 @@ import { PaymentController } from '@presentation/controllers/payment.controller'
       UserEntity,
     ]),
   ],
-  controllers: [ConcertsController, AuthController, PaymentController],
+  controllers: [concertController, AuthController, PaymentController],
   providers: [
     ConcertService,
     AuthService,

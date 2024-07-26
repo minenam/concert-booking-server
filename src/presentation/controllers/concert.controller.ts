@@ -21,7 +21,7 @@ import { LoggingInterceptor } from '@presentation/interceptors/logging.intercept
 @ApiTags('concerts')
 @UseInterceptors(LoggingInterceptor)
 @Controller('concerts')
-export class ConcertsController {
+export class concertController {
   constructor(
     private readonly reservationService: ReservationService,
     private readonly concertService: ConcertService,
