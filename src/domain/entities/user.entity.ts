@@ -1,7 +1,4 @@
-import { Queue } from './queue.entity';
-
 export class User {
-  id?: string | null;
+  id: string;
   balance: number;
-  queue?: Queue[] | null = null;
 }
