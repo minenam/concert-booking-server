@@ -1,4 +1,3 @@
-import { QueueStatus } from '@domain/entities/queue.entity';
 import {
   Column,
   CreateDateColumn,
@@ -9,7 +8,7 @@ import {
 } from 'typeorm';
 import { UserEntity } from './user.entity';
 
-export enum QueueEntityStatus {
+export enum QueueStatus {
   WAITING = 'WAITING', // 대기 중
   IN_PROGRESS = 'IN_PROGRESS', // 예약 및 결제 진행 중
   DONE = 'DONE', // 만료
