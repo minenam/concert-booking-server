@@ -9,6 +9,7 @@ import { ReservationEntity } from '@infrastructure/typeorm/entities/reservation.
 import { SeatEntity } from '@infrastructure/typeorm/entities/seat.entity';
 import { UserEntity } from '@infrastructure/typeorm/entities/user.entity';
 import { ConcertRepository } from '@infrastructure/typeorm/repositories/concert.repository';
+import { PaymentRepository } from '@infrastructure/typeorm/repositories/payment.repository';
 import { QueueRepository } from '@infrastructure/typeorm/repositories/queue.repository';
 import { ReservationRepository } from '@infrastructure/typeorm/repositories/reservation.repository';
 import { SeatRepository } from '@infrastructure/typeorm/repositories/seat.repository';
@@ -24,7 +25,7 @@ import { PaymentController } from '@presentation/controllers/payment.controller'
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
-      port: 5435,
+      port: 5433,
       username: 'postgres',
       password: 'postgres',
       database: 'concerts',
@@ -72,6 +73,10 @@ import { PaymentController } from '@presentation/controllers/payment.controller'
     {
       provide: 'SeatRepository',
       useClass: SeatRepository,
+    },
+    {
+      provide: 'PaymentRepository',
+      useClass: PaymentRepository,
     },
   ],
 })
