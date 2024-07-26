@@ -1,9 +1,10 @@
 import { Reservation } from '@domain/entities/reservation.entity';
 import { QueueRepositoryInterface } from '@domain/interfaces/queue-repository.interface';
+import { ReservationRepositoryInterface } from '@domain/interfaces/researvation-repository.interface';
+import { SeatRepositoryInterface } from '@domain/interfaces/seat-repository.interface';
+import { UserRepositoryInterface } from '@domain/interfaces/user-repository.interface';
 import { SeatStatus } from '@infrastructure/typeorm/entities/seat.entity';
-import { ReservationRepository } from '@infrastructure/typeorm/repositories/reservation.repository';
-import { SeatRepository } from '@infrastructure/typeorm/repositories/seat.repository';
-import { UserRepository } from '@infrastructure/typeorm/repositories/user.repository';
+
 import {
   Inject,
   Injectable,
@@ -16,9 +17,12 @@ export class ReservationService {
   constructor(
     @Inject('QueueRepository')
     private readonly queueRepository: QueueRepositoryInterface,
-    private readonly reservationRepository: ReservationRepository,
-    private readonly seatRepository: SeatRepository,
-    private readonly userRepository: UserRepository,
+    @Inject('ReservationRepository')
+    private readonly reservationRepository: ReservationRepositoryInterface,
+    @Inject('SeatRepository')
+    private readonly seatRepository: SeatRepositoryInterface,
+    @Inject('UserRepository')
+    private readonly userRepository: UserRepositoryInterface,
   ) {}
 
   async reserveSeat(
