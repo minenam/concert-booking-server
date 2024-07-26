@@ -53,7 +53,10 @@ import { PaymentController } from '@presentation/controllers/payment.controller'
     AuthService,
     PaymentService,
     ReservationService,
-    UserRepository,
+    {
+      provide: 'UserRepository',
+      useClass: UserRepository,
+    },
     {
       provide: 'QueueRepository',
       useClass: QueueRepository,
@@ -62,8 +65,14 @@ import { PaymentController } from '@presentation/controllers/payment.controller'
       provide: 'ConcertRepository',
       useClass: ConcertRepository,
     },
-    ReservationRepository,
-    SeatRepository,
+    {
+      provide: 'ReservationRepository',
+      useClass: ReservationRepository,
+    },
+    {
+      provide: 'SeatRepository',
+      useClass: SeatRepository,
+    },
   ],
 })
 export class AppModule {}
