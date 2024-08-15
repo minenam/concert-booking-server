@@ -1,18 +1,16 @@
-import { QueueEntity } from '@infrastructure/typeorm/entities/queue.entity';
-import { QueueRepository } from '@infrastructure/typeorm/repositories/queue.respository';
+import { QueueRepositoryInterface } from '@domain/interfaces/queue-repository.interface';
+import { UserRepositoryInterface } from '@domain/interfaces/user-repository.interface';
+import { QueueRepository } from '@infrastructure/typeorm/repositories/queue.repository';
 import { UserRepository } from '@infrastructure/typeorm/repositories/user.repository';
 import { NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import { getRepositoryToken } from '@nestjs/typeorm';
-import { mockQueue, mockUser } from '@test/mocks/mock';
-import { Repository } from 'typeorm';
+import { mockUser } from '@test/mocks/mock';
 import { AuthService } from './auth.service';
 
 describe('AuthService', () => {
   let service: AuthService;
-  let userRepository: UserRepository;
-  let queueRepository: QueueRepository;
-  let queueEntityRepository: Repository<QueueEntity>;
+  let userRepository: UserRepositoryInterface;
+  let queueRepository: QueueRepositoryInterface;
 
   beforeEach(async () => {
     userRepository = {
@@ -26,13 +24,6 @@ describe('AuthService', () => {
       findMany: jest.fn(),
     } as unknown as QueueRepository;
 
-    queueEntityRepository = {
-      findOne: jest.fn(),
-      save: jest.fn(),
-      find: jest.fn(),
-      create: jest.fn().mockImplementation((entity) => entity),
-    } as unknown as Repository<QueueEntity>;
-
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         AuthService,
@@ -41,11 +32,7 @@ describe('AuthService', () => {
           useValue: queueRepository,
         },
         {
-          provide: getRepositoryToken(QueueEntity),
-          useValue: queueEntityRepository,
-        },
-        {
-          provide: UserRepository,
+          provide: 'UserRepository',
           useValue: userRepository,
         },
       ],
@@ -74,7 +61,7 @@ describe('AuthService', () => {
     it('should generate a token if user is valid', async () => {
       jest.spyOn(userRepository, 'findById').mockResolvedValue(mockUser);
       jest.spyOn(queueRepository, 'findMany').mockResolvedValue([]);
-      jest.spyOn(queueRepository, 'save').mockResolvedValue(mockQueue);
+      // jest.spyOn(queueRepository, 'save').mockResolvedValue(mockQueue);
 
       const result = await service.getToken(mockUser.id);
 
@@ -101,7 +88,7 @@ describe('AuthService', () => {
       it('should save queue and generate token', async () => {
         jest.spyOn(userRepository, 'findById').mockResolvedValue(mockUser);
         jest.spyOn(queueRepository, 'findMany').mockResolvedValue([]);
-        jest.spyOn(queueRepository, 'save').mockResolvedValue(mockQueue);
+        // jest.spyOn(queueRepository, 'save').mockResolvedValue(mockQueue);
 
         const result = await service['setQueue'](mockUser.id);
 
