@@ -1,6 +1,5 @@
 import { AuthService } from '@application/services/auth.service';
 import { ConcertService } from '@application/services/concert.service';
-import { PaymentService } from '@application/services/payment.service';
 import { ReservationService } from '@application/services/reservation.service';
 import { UserService } from '@application/services/user.service';
 import { ConcertEntity } from '@infrastructure/typeorm/entities/concert.entity';
@@ -53,7 +52,6 @@ import { PaymentController } from '@presentation/controllers/payment.controller'
   providers: [
     ConcertService,
     AuthService,
-    PaymentService,
     ReservationService,
     UserService,
     {

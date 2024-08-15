@@ -3,13 +3,19 @@ import {
   Body,
   Controller,
   Get,
+  HttpStatus,
   Param,
   Post,
   UseInterceptors,
 } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { LoggingInterceptor } from '@presentation/interceptors/logging.interceptor';
-import { ChargeDto, PaymentDto } from '../dtos/payment.dto';
+import {
+  ChargeDto,
+  ChargeResponseDto,
+  GetBalanceResponseDto,
+  PaymentDto,
+} from '../dtos/payment.dto';
 
 @ApiTags('payment')
 @UseInterceptors(LoggingInterceptor)
@@ -20,14 +26,29 @@ export class PaymentController {
   @ApiOperation({ summary: '잔액 충전' })
   @ApiBody({ type: ChargeDto })
   @Post('charge')
-  async chargeBalance(@Body() charge: ChargeDto): Promise<number> {
-    return await this.userService.chargeBalance(charge.userId, +charge.amount);
+  async chargeBalance(@Body() charge: ChargeDto): Promise<ChargeResponseDto> {
+    const balance = await this.userService.chargeBalance(
+      charge.userId,
+      +charge.amount,
+    );
+    return {
+      statusCode: HttpStatus.CREATED,
+      message: 'Success',
+      balance,
+    };
   }
 
   @ApiOperation({ summary: '잔액 조회' })
   @Get('balance/:userId')
-  async getBalance(@Param('userId') userId: string): Promise<number> {
-    return await this.userService.getBalance(userId);
+  async getBalance(
+    @Param('userId') userId: string,
+  ): Promise<GetBalanceResponseDto> {
+    const result = await this.userService.getBalance(userId);
+    return {
+      statusCode: HttpStatus.OK,
+      message: 'Success',
+      balance: result,
+    };
   }
 
   @ApiOperation({ summary: '결제' })
