@@ -8,7 +8,7 @@ export const mockUser = {
 
 export const mockQueue = {
   id: 1,
-  user: mockUser,
+  userId: mockUser.id,
   position: 1,
   status: QueueStatus.WAITING,
   createdAt: new Date(),
