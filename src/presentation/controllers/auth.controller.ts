@@ -11,7 +11,6 @@ import { ApiBody, ApiTags } from '@nestjs/swagger';
 import { GetTokenBodyDto } from '@presentation/dtos/get-token.dto';
 import { LoggingInterceptor } from '@presentation/interceptors/logging.interceptor';
 import { Response } from 'express';
-import { ServerResponse } from 'http';
 
 @ApiTags('auth')
 @UseInterceptors(LoggingInterceptor)
@@ -24,10 +23,10 @@ export class AuthController {
   async getToken(
     @Body() body: GetTokenBodyDto,
     @Res() response: Response,
-  ): Promise<ServerResponse> {
+  ): Promise<void> {
     const { token } = await this.authService.getToken(body.userId);
     response.header('user-token', token);
-    return response.send({
+    response.send({
       statusCode: HttpStatus.OK,
       message: 'Token generated successfully',
     });

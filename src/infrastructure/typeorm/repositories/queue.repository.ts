@@ -3,7 +3,7 @@ import { QueueRepositoryInterface } from '@domain/interfaces/queue-repository.in
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FindManyOptions, FindOneOptions, Repository } from 'typeorm';
-import { QueueEntity } from '../entities/queue.entity';
+import { QueueEntity, QueueStatus } from '../entities/queue.entity';
 
 @Injectable()
 export class QueueRepository implements QueueRepositoryInterface {
@@ -30,7 +30,7 @@ export class QueueRepository implements QueueRepositoryInterface {
     const findParameters: FindOneOptions<Queue> = {
       where: { userId },
       select: { userId: true },
-      relations: ['user'],
+      relations: ['userId'],
     };
     const queue = await this.queueRepository.findOne(findParameters);
     if (!queue) return null;
@@ -39,5 +39,17 @@ export class QueueRepository implements QueueRepositoryInterface {
 
   async findMany(parameters?: FindManyOptions<Queue>): Promise<Queue[]> {
     return await this.queueRepository.find(parameters);
+  }
+
+  async findByUserIdAndPosition(
+    userId: string,
+    position: number,
+    status: QueueStatus,
+  ): Promise<Queue | null> {
+    const queue = await this.queueRepository.findOne({
+      where: { userId, position, status },
+    });
+    if (!queue) return null;
+    return queue;
   }
 }

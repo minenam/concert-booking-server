@@ -88,7 +88,6 @@ export class UserService {
       queue.position,
       QueueStatus.WAITING,
     );
-    console.log(userQueue);
 
     if (!userQueue) {
       throw new UnauthorizedException('Invalid token or queue position');
